@@ -1,6 +1,6 @@
 # solutions-html-editors
 
-Reusable Custom HTML Editors for Labelbox
+Reusable HTML Editors for Labelbox
 
 This respository has one folder for each custom HTML editor for Labelbox.  
 
