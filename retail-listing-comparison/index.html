@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <script>
-​
+
 /**
  * Labelbox Solutions Engineering
  * Author: Joe Morales
@@ -23,17 +23,17 @@
  * Testing Locally on a Mac
  * 1.) Download single html file to your machine
  * 2.) Open Terminal. 
- *  3.) Navigate to folder with HTML file
+ * 3.) Navigate to folder with HTML file
  * 4.) Start a web server at command line with 'python -m http.server'
  * 5.) Open browser to localhost:8000 
  * 
  */ 
-​
+
 var listing = {
-​
+
     listingUrl: "https://www.wayfair.com/outdoor/pdp/arlmont-co-hurst-steel-wood-burning-fire-pit-w005482236.html",
     title: "Hurst 24'' H x 31'' W Steel Wood Burning Outdoor Fire Pit",
-​
+
     images: [
          "https://secure.img1-cg.wfcdn.com/im/00168610/resize-h800-w800%5Ecompr-r85/9211/92117780/Hurst+24%27%27+H+x+31%27%27+W+Steel+Wood+Burning+Outdoor+Fire+Pit.jpg",
          "https://secure.img1-cg.wfcdn.com/im/75920620/resize-h800-w800%5Ecompr-r85/2064/206418424/Hurst+24%27%27+H+x+31%27%27+W+Steel+Wood+Burning+Outdoor+Fire+Pit.jpg",
@@ -41,42 +41,42 @@ var listing = {
          "https://secure.img1-fg.wfcdn.com/im/87427975/resize-h800-w800%5Ecompr-r85/2064/206418430/Hurst+24%27%27+H+x+31%27%27+W+Steel+Wood+Burning+Outdoor+Fire+Pit.jpg",
          "https://secure.img1-fg.wfcdn.com/im/87271533/resize-h800-w800%5Ecompr-r85/2064/206418425/Hurst+24%27%27+H+x+31%27%27+W+Steel+Wood+Burning+Outdoor+Fire+Pit.jpg"
      ],
-​
+
      detail: [
          {description: "Add Impressive Style to Any Outdoor Living Space"},
          {description: "Give your patio or backyard a regal fire with this stylish fire pit. Featuring a warm, rich copper finish, this fire pit is sure to be the center of your outdoor entertaining. It also has convenient handles that make it easy to move the fire pit and dump out the ashes. Plus, they add a nice decorative touch, along with the faux brass tack riveting along the top edge of the fire bowl."}
      ]
-​
+
 };
-​
+
 var listing2 = {
-​
+
     listingUrl: "https://www.wayfair.com/outdoor/pdp/lark-manor-porterville-32-outdoor-fire-pit-table-with-grill-wood-burning-fireplace-bowl-w006957245.html",
     title: "Porterville 14'' H x 32'' W Iron Outdoor Fire Pit Table with Lid", 
-​
+        
     images: [
          "https://secure.img1-fg.wfcdn.com/im/60983498/resize-h800-w800%5Ecompr-r85/1672/167291511/Porterville+14%27%27+H+x+32%27%27+W+Iron+Outdoor+Fire+Pit+Table+with+Lid.jpg",
          "https://secure.img1-fg.wfcdn.com/im/92878020/resize-h800-w800%5Ecompr-r85/1672/167291517/Porterville+14%27%27+H+x+32%27%27+W+Iron+Outdoor+Fire+Pit+Table+with+Lid.jpg"
      ],
-​
+
      detail: [
          {description: "Best choice for family!  The fire pit table is made of high-quality steel and heat-resistant black coating which makes it stable and safe for usage. We offer a safe mesh lid and poker to protect you from hurt by flying sparks or debris. With plus BBQ net and waterproof cover, you can enjoy multi-purpose usage for parties, camping, and plenty of outdoor activities and store it anywhere. It is a must item for your party and family time."},
          {description: "Best choice for family!  The fire pit table is made of high-quality steel and heat-resistant black coating which makes it stable and safe for usage. We offer a safe mesh lid and poker to protect you from hurt by flying sparks or debris. With plus BBQ net and waterproof cover, you can enjoy multi-purpose usage for parties, camping, and plenty of outdoor activities and store it anywhere. It is a must item for your party and family time."}
      ]
-​
+
 };
 </script>
-​
+ 
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-​
+ 
     * {box-sizing: border-box}
     body {font-family: Verdana, sans-serif; margin:0}
     img {vertical-align: middle;}
-​
+ 
     .slideshow-container-image {display: none}
-​
+ 
     /* Slideshow container */
     .split-container{
       padding: 20px;
@@ -85,7 +85,7 @@ var listing2 = {
       overflow:hidden;
       display:inline;
     }
-​
+ 
     .divider{
         margin-top:40px;
         height:1000px;
@@ -94,17 +94,17 @@ var listing2 = {
         border-style:none solid none none;
         float:left;
     }
-​
+ 
     .slideshow-container {
       position: relative;
       margin: auto;
     }
-​
+ 
     /* On hover, add a black background color with a little bit see-through */
      .prev:hover, .next:hover {
       background-color: rgba(0,0,0,0.8);
     }
-​
+ 
     /* The dots/bullets/indicators */
     .dot {
       cursor: pointer;
@@ -117,111 +117,112 @@ var listing2 = {
       transition: background-color 0.6s ease;
       text-align: center;
     }
-​
+ 
     #dot-container{
       margin: 10px 0px 10px 0px;
     }
-​
+ 
     .active, .dot:hover {
       background-color: #717171;
     }
-​
+ 
     /* Fading animation */
     .fade {
       animation-name: fade;
       animation-duration: 1.5s;
     }
-​
+ 
     @keyframes fade {
       from {opacity: .4} 
       to {opacity: 1}
     }
-​
+ 
     /* On smaller screens, decrease text size */
     @media only screen and (max-width: 300px) {
       .prev, .next,.text {font-size: 11px}
     }
-​
+ 
 </style>
 </head>
 <body>
     <div id="root"></div>
 </body>
 <script>
-​
+ 
 function createListing(listing, divider) {
-​
+ 
     this.root = document.getElementById("root");
     this.listing = listing; 
-​
+ 
     this.main = document.createElement('div');;
     this.main.className = "split-container";
-​
+ 
     this.main.innerHTML = "<h4>" + this.listing.title + "</h4>";
     this.root.appendChild(this.main);
     
     this.imageSlider = document.createElement("div");
     this.imageSlider.className="slideshow-container";
-​
+ 
     this.dotContainer = document.createElement('div');
     this.dotContainer.id = "dot-container";
-​
+ 
     this.detailContainer = document.createElement("div");
     this.main.append(this.imageSlider, this.dotContainer, this.detailContainer);
-​
+ 
     this.slides = this.imageSlider.children;
     this.dots = this.dotContainer.children;
-​
+ 
     // Click handler for clicking hte carousel button
     this.showSlides = function(n){
-​
+ 
         for (i = 0; i < this.slides.length; i++) {
             this.slides[i].style.display = "none";
         }
-​
+ 
         for (i = 0; i < this.dots.length; i++) {
             this.dots[i].className = this.dots[i].className.replace(" active", "");
         }
-​
+ 
         this.slides[n-1].style.display = "block";
         this.dots[n-1].className += " active";
-​
+ 
     }
-​
+ 
     var parent = this;
-​
+ 
     // Create Image Carousel navigation buttons
     this.createSlideButton = function(slideNumber, showSlides){
-​
+ 
         var dot = document.createElement("span");
         dot.className = "dot";
         dot.onclick = function(){
             parent.showSlides(slideNumber);
         }
-​
+ 
         return dot;
     }
-​
+ 
     // Create Product Image Carousel
     for(var i = 0 ; i < this.listing.images.length ; i++){
-​
+ 
         var slide = i + 1;
-​
+ 
         var imageContainer = document.createElement("div");
-        imageContainer.style="";
+        imageContainer.style="height:350px";
         imageContainer.classList.add(this.slideShowContainerId+"-image");     
         imageContainer.classList.add("fade");     
-​
+ 
         var image = document.createElement("img");
-        image.style="width:88%";
+        //image.style="width:88%";
+        image.style="height:100%";
         image.src=this.listing.images[i];
-​
+ 
         imageContainer.appendChild(image);
         this.dotContainer.appendChild(this.createSlideButton(slide, this.showSlides));
         this.imageSlider.appendChild(imageContainer);
    
     }
-​
+ 
     // Create Product Listing Text Detail
     for(var i = 0 ; i < this.listing.detail.length ; i++){
         var detail = document.createElement("div");
@@ -229,9 +230,9 @@ function createListing(listing, divider) {
         this.detailContainer.appendChild(document.createElement("hr"));
         this.detailContainer.appendChild(detail);
     }
-​
+ 
     this.showSlides(1);
-​
+ 
     if(divider === true){
         var divider = document.createElement('div');
         divider.className = 'divider';
@@ -241,6 +242,6 @@ function createListing(listing, divider) {
 /* Initialize side by side listing comparison */
 new createListing(listing, true);
 new createListing(listing2);
-​
+ 
 </script>
 </html> 
