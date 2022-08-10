@@ -29,7 +29,8 @@
  * 
  */ 
 
-var listing = {
+var listings = [
+{
 
     listingUrl: "https://www.wayfair.com/outdoor/pdp/arlmont-co-hurst-steel-wood-burning-fire-pit-w005482236.html",
     title: "Hurst 24'' H x 31'' W Steel Wood Burning Outdoor Fire Pit",
@@ -42,14 +43,16 @@ var listing = {
          "https://secure.img1-fg.wfcdn.com/im/87271533/resize-h800-w800%5Ecompr-r85/2064/206418425/Hurst+24%27%27+H+x+31%27%27+W+Steel+Wood+Burning+Outdoor+Fire+Pit.jpg"
      ],
 
-     detail: [
-         {description: "Add Impressive Style to Any Outdoor Living Space"},
-         {description: "Give your patio or backyard a regal fire with this stylish fire pit. Featuring a warm, rich copper finish, this fire pit is sure to be the center of your outdoor entertaining. It also has convenient handles that make it easy to move the fire pit and dump out the ashes. Plus, they add a nice decorative touch, along with the faux brass tack riveting along the top edge of the fire bowl."}
+     features:[
+         {name: "Description", value: "Give your patio or backyard a regal fire with this stylish fire pit. Featuring a warm, rich copper finish, this fire pit is sure to be the center of your outdoor entertaining. It also has convenient handles that make it easy to move the fire pit and dump out the ashes. Plus, they add a nice decorative touch, along with the faux brass tack riveting along the top edge of the fire bowl."},
+         {name:"Design", value:"Heated"},
+         {name:"Upholstry Material", value:"Heated"},
+         {name:"Faux Leather Type", value:"PU"},
+         {name:"Frame Material", value:"Metal; Solid Wood"},
+         {name:"Cushion Fill Material", value:"Foam"}
      ]
 
-};
-
-var listing2 = {
+},{
 
     listingUrl: "https://www.wayfair.com/outdoor/pdp/lark-manor-porterville-32-outdoor-fire-pit-table-with-grill-wood-burning-fireplace-bowl-w006957245.html",
     title: "Porterville 14'' H x 32'' W Iron Outdoor Fire Pit Table with Lid", 
@@ -59,12 +62,16 @@ var listing2 = {
          "https://secure.img1-fg.wfcdn.com/im/92878020/resize-h800-w800%5Ecompr-r85/1672/167291517/Porterville+14%27%27+H+x+32%27%27+W+Iron+Outdoor+Fire+Pit+Table+with+Lid.jpg"
      ],
 
-     detail: [
-         {description: "Best choice for family!  The fire pit table is made of high-quality steel and heat-resistant black coating which makes it stable and safe for usage. We offer a safe mesh lid and poker to protect you from hurt by flying sparks or debris. With plus BBQ net and waterproof cover, you can enjoy multi-purpose usage for parties, camping, and plenty of outdoor activities and store it anywhere. It is a must item for your party and family time."},
-         {description: "Best choice for family!  The fire pit table is made of high-quality steel and heat-resistant black coating which makes it stable and safe for usage. We offer a safe mesh lid and poker to protect you from hurt by flying sparks or debris. With plus BBQ net and waterproof cover, you can enjoy multi-purpose usage for parties, camping, and plenty of outdoor activities and store it anywhere. It is a must item for your party and family time."}
-     ]
+     features:[
+          {name:"Description", value:"Best choice for family!  The fire pit table is made of high-quality steel and heat-resistant black coating which makes it stable and safe for usage. We offer  a safe mesh lid and poker to protect you from hurt by flying sparks or debris. With plus BBQ net and waterproof cover, you can enjoy multi-purpose usage for parties, camping, and     plenty of outdoor activities and store it anywhere. It is a must item for your party and family time."},
+          {name:"Design", value:"Heated"},
+          {name:"Upholstry Material", value:"Heated"},
+          {name:"Faux Leather Type", value:"PU"},
+          {name:"Frame Material", value:"Metal; Solid Wood"},
+          {name:"Cushion Fill Material", value:"Foam"}
+      ]
 
-};
+}];
 </script>
  
 <head>
@@ -73,7 +80,6 @@ var listing2 = {
  
     * {box-sizing: border-box}
     body {font-family: Verdana, sans-serif; margin:0}
-    img {vertical-align: middle;}
  
     .slideshow-container-image {display: none}
  
@@ -84,6 +90,19 @@ var listing2 = {
       float:left;
       overflow:hidden;
       display:inline;
+    }
+
+    .feature-table{
+      border-style:solid;
+      font-size:12px;
+      text-align:left;
+      font-weight:normal;
+    }
+
+    .feature-table th{
+      border: 1px solid silver;
+      vertical-align: top;
+      padding: 5px;
     }
  
     .divider{
@@ -157,7 +176,7 @@ function createListing(listing, divider) {
     this.main = document.createElement('div');;
     this.main.className = "split-container";
  
-    this.main.innerHTML = "<h4>" + this.listing.title + "</h4>";
+    this.main.innerHTML = "<h5>" + this.listing.title + "</h5>";
     this.root.appendChild(this.main);
     
     this.imageSlider = document.createElement("div");
@@ -166,8 +185,8 @@ function createListing(listing, divider) {
     this.dotContainer = document.createElement('div');
     this.dotContainer.id = "dot-container";
  
-    this.detailContainer = document.createElement("div");
-    this.main.append(this.imageSlider, this.dotContainer, this.detailContainer);
+    this.featureContainer = document.createElement("div");
+    this.main.append(this.imageSlider, this.dotContainer, this.featureContainer);
  
     this.slides = this.imageSlider.children;
     this.dots = this.dotContainer.children;
@@ -213,7 +232,6 @@ function createListing(listing, divider) {
         imageContainer.classList.add("fade");     
  
         var image = document.createElement("img");
-        //image.style="width:88%";
         image.style="height:100%";
         image.src=this.listing.images[i];
  
@@ -223,14 +241,26 @@ function createListing(listing, divider) {
    
     }
  
-    // Create Product Listing Text Detail
-    for(var i = 0 ; i < this.listing.detail.length ; i++){
-        var detail = document.createElement("div");
-        detail.innerHTML = this.listing.detail[i].description;
-        this.detailContainer.appendChild(document.createElement("hr"));
-        this.detailContainer.appendChild(detail);
+    // Create Product Listing Text Features
+    var table = document.createElement('table');
+    table.className = "feature-table";
+    
+    for(var i = 0 ; i < this.listing.features.length ; i++){
+        var feature = document.createElement("div");
+        feature.innerHTML = this.listing.features[i].name + ": " + this.listing.features[i].value;
+
+        var row = document.createElement('tr');
+        var nameColumn = document.createElement('th');
+        nameColumn.innerHTML = this.listing.features[i].name;
+        var valueColumn = document.createElement('th');
+        valueColumn.innerHTML = this.listing.features[i].value;
+
+        row.appendChild(nameColumn);
+        row.appendChild(valueColumn);
+        table.appendChild(row);
+
     }
- 
+    this.featureContainer.appendChild(table);
     this.showSlides(1);
  
     if(divider === true){
@@ -240,8 +270,8 @@ function createListing(listing, divider) {
  
    }} 
 /* Initialize side by side listing comparison */
-new createListing(listing, true);
-new createListing(listing2);
+new createListing(listings[0], true);
+new createListing(listings[1]);
  
 </script>
 </html> 
