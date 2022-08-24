@@ -2,33 +2,10 @@
 <html>
 <script>
 
-/**
- * Labelbox Solutions Engineering
- * Author: Joe Morales
- *
- * This custom editor page is designed for Shopping cart similarity comparison
- * Each listing has a JSON structure with image carousel images and listing detail.  For each datarow, 
- * with the HTML code to compose a row level HTML Editor. 
- *
- * Design Considerations: 
- * 
- * - Designed to work within the core Labelbox editor capabilities, no app hosting required
- * - HTML Template does not require dev of a custom editor
- * - No external libraries or vulerabilities required
- * - Easy to concatenate creating one HTML file per data row during pre-processing
- * - Supports dynamic number of carousel images or listing detail: JSON drives dynamic HTML content
- * - Responsive design allows flexible screen sizing to lay inside Labelbox Editor
- * - Can be secured if necessary by whitelisting the stable IP for your workforce team
- * 
- * Testing Locally on a Mac
- * 1.) Download single html file to your machine
- * 2.) Open Terminal. 
- * 3.) Navigate to folder with HTML file
- * 4.) Start a web server at command line with 'python -m http.server'
- * 5.) Open browser to localhost:8000 
- * 
- */ 
-
+/*
+Dynamically create listings JSON array for each side by side listing comparison
+*/
+    
 var listings = [
 {
 
