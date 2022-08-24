@@ -23,17 +23,18 @@ Configured by providing a JSON payload that dynamically generates the listing.
 
  
 #### How to create a datarow for html editor and upload to Labelbox
-  1.) Edit the listings variable on line 39 with two listings 
-  2.) Go to Labelbox Catalog and create a new dataset via the UI
-  3.) Click "Choose files to upload" and upload the .html file 
-  4.) In Annotate, click "+ new project" and for "Type of data to be labeled" select "Text"
-  5.) In the project, click "Queue data for labeling" and select the datarow(s) and then "Send data row" as a batch to project
+  1. Edit the listings variable on line 39 with two listings 
+  2. Go to Labelbox Catalog and create a new dataset via the UI
+  3. Click "Choose files to upload" and upload the .html file 
+  4. In Annotate, click "+ new project" and for "Type of data to be labeled" select "Text"
+  5. In the project, click "Queue data for labeling" and select the datarow(s) and then "Send data row" as a batch to project
+
  
 #### Testing Locally on a Mac
-  1.) Download single html file to your machine
-  2.) Open Terminal. 
-  3.) Navigate to folder with HTML file
-  4.) Start a web server at command line with 'python -m http.server'
-  5.) Open browser to localhost:8000 
+  1. Download single html file to your machine
+  2. Open Terminal. 
+  3. Navigate to folder with HTML file
+  4. Start a web server at command line with 'python -m http.server'
+  5. Open browser to localhost:8000 
   
 ### More Editors to come!
