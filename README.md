@@ -23,7 +23,7 @@ Configured by providing a JSON payload that dynamically generates the listing.
 
  
 #### How to create a datarow for html editor and upload to Labelbox
-  1. Edit the listings variable on line 39 with two listings 
+  1. Edit the listings JSON variable with two listings 
   2. Go to Labelbox Catalog and create a new dataset via the UI
   3. Click "Choose files to upload" and upload the .html file 
   4. In Annotate, click "+ new project" and for "Type of data to be labeled" select "Text"
