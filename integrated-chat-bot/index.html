@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" media="screen" href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css">
+ <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<style>
+
+body {
+  margin:0px;
+  padding:0px;
+  font-family: "IBM Plex Sans", sans-serif;
+
+}
+
+.container {
+  border: 1px solid #dedede;
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+</style>
+</head>
+
+<body>
+
+<div id="root" style="width: 90%; margin: auto;position:relative">
+<br/>
+<h2>Custom Chat Editor</h2>
+
+<div id = "chat-space">
+<!--<div class="container">
+    <img src="https://www.w3schools.com/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
+    <p>Hello. How are you today?</p>
+    <span class="time-right">11:01</span>
+</div>
+
+<div class="container darker">
+    <img src="https://www.w3schools.com/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:100%;">
+    <p>Hey! I'm fine. Thanks for asking!</p>
+    <span class="time-left">11:01</span>
+</div>
+-->
+
+<hr/>
+
+</div>
+
+<div class="container input-group mb-3">
+    <input id="comment" type="text" class="form-control" placeholder="Type a chat message" aria-label="Recipient's username" aria-describedby="button-addon2">
+    <button onclick="postChat()" class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+</div>
+</div>
+</body>
+
+<script>
+
+var conversation = [];
+
+function updateConversation(name, comment){
+   var commentObj = {
+       creator: name,
+       comment: comment
+   };
+
+   conversation.push(commentObj);
+   console.log(conversation);
+
+   localStorage.setItem('botConversation', JSON.stringify(conversation));
+
+}
+
+function postChat(){
+ 
+
+    var root=document.getElementById("chat-space");
+    var comment = document.getElementById('comment').value; 
+
+    updateConversation("labeler", comment);
+
+    document.getElementById('comment').value = "";
+
+    /* Post User Comment */
+    var chat = document.createElement("div");
+    chat.className="container";
+
+    var chatAvatar = document.createElement("img");
+    chatAvatar.src="https://www.w3schools.com/w3images/avatar_g2.jpg";
+    chatAvatar.className = "right";
+    chatAvatar.alt="Avatar"; 
+
+    var chatText = document.createElement("p");
+    chatText.innerHTML = comment;
+
+    var chatTime  = document.createElement("span");
+    chatTime.className="time-left";
+    chatTime.innerHTML = "11:01";
+
+    chat.appendChild(chatAvatar);
+    chat.appendChild(chatText);
+    chat.appendChild(chatTime);
+
+    root.appendChild(chat); 
+
+    callBotAPI(comment);
+
+}
+
+function postResponse(responseObj){
+
+    //var botResponse = responseObj.name + " is " + responseObj.age + " years old";
+    var botResponse = responseObj.fact;
+    var root=document.getElementById("chat-space"); 
+    updateConversation("bot", botResponse);
+
+    /* Post Bot Response */
+    var response = document.createElement("div");
+    response.className="container darker";
+
+    var responseImage = document.createElement("img");
+    responseImage.src="https://www.w3schools.com/w3images/bandmember.jpg";
+    responseImage.alt="Avatar";
+    responseImage.class="right" ;
+
+    var responseText = document.createElement("p");
+    responseText.innerHTML = botResponse;
+
+    var responseTime  = document.createElement("span");
+    responseTime.class="time-right";
+    responseTime.innerHTML = "11:01";
+
+    response.appendChild(responseImage);
+    response.appendChild(responseText);
+    response.appendChild(responseTime);
+
+    root.appendChild(response); 
+}
+    
+
+function callBotAPI(name){
+
+    // Set up our HTTP request
+    var xhr = new XMLHttpRequest();
+
+    // Setup our listener to process request state changes
+    xhr.onreadystatechange = function () {
+
+	    // Only run if the request is complete
+	    if (xhr.readyState !== 4) return;
+
+	    // Process our return data
+	    if (xhr.status >= 200 && xhr.status < 300) {
+	    	// This will run when the request is successful
+	    	// It checks to make sure the status code is in the 200 range
+	    	console.log('success!', xhr);
+            postResponse(JSON.parse(xhr.response));
+	    } else {
+		    // This will run when it's not
+		    console.log('The request failed!');
+	    }
+
+	    // This will run either way
+	    // All three of these are optional, depending on what you're trying to do
+	    console.log('This always runs...');
+
+    };
+
+    // Create and send a GET request
+    // The first argument is the request type (GET, POST, PUT, DELETE, etc.)
+    // The second argument is the endpoint URL
+    // xhr.open('GET', 'https://api.agify.io/?name=' + name);
+    xhr.open('GET', 'https://catfact.ninja/fact');
+    xhr.send();
+}
+    
+</script>
+</html>
