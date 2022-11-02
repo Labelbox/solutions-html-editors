@@ -37,4 +37,4 @@ Configured by providing a JSON payload that dynamically generates the listing.
   4. Start a web server at command line with 'python -m http.server'
   5. Open browser to localhost:8000 
   
-### More Editors to come!
+### More Editors to come!!
